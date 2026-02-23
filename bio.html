@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    (function() {
+        // Check if the user has already seen the animation this session
+        if (sessionStorage.getItem('hasVisited')) {
+            // Add the class to the <html> or <body> tag immediately
+            document.documentElement.classList.add('skip-animation');
+        } else {
+            // This is their first time here, so set the flag for later
+            sessionStorage.setItem('hasVisited', 'true');
+        }
+    })();
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img.png">
+    <title>Boggie Energies</title>
+    <!-- Font Awesome 6 (clear, colourful icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- separate CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+     <!-- ========== HEADER & LOGO AREA ========== -->
+    <header class="header-area">
+        <div class="container header-flex">
+            <div class="logo-block">
+    <div class="logo-icon">
+        <img src="logo2.png" alt="logo" class="header-logo">
+    </div>
+    <div class="logo-text">BOGGIE <span>ENERGIES <div class="limited-row">
+      <h3>LIMITED</h3>
+      <span class="rc-number">RC: 9290297</span></span></div>
+     
+</div>
+           </div>
+            <nav class="navbar">
+                <ul>
+                    <li><a href="index.html">Home</a>
+                    </li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#mission">Mission</a></li>
+                    <li><a href="index.html#services">Services</a></li>
+                    <li><a href="index.html#philosophy">Philosophy</a></li>
+                    <li><a href="index.html#sister">Sister Brand</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                 
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== HERO SECTION with IMAGE ========== -->
+    <section id="home" class="hero-section">
+        <div class="hero-bg"></div>  <!-- background image via CSS -->
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1>Meet<br> the <span class="maroon-text">Founder</span></h1>
+             
+                <div class="hero-stats">
+               
+                </div>
+            </div>
+        </div>
+    </section>
+       <!-- MEET THE FOUNDER SECTION -->
+    <section class="founder-wrapper">
+        <div class="founder-card">
+            <div class="founder-container">
+                <!-- LEFT COLUMN: IMAGE PLACEHOLDER + NAME -->
+                <div class="founder-image-col">
+                    
+                    <div class="image-placeholder">
+    <img src="founder.png" alt="Founder Nkpuluaku Ejike" class="actual-foundg">
+</div>
+                    <div class="founder-name-title">
+                        <h2>Nkpuluaku<span class="maroon-text"> Ejike</span></h2>
+                        <span class="founder-role">Project Director</span>
+                        <div class="tiny-tagline">
+                            <i class="fas fa-hard-hat"></i> 20+ years <i class="fas fa-oil-can"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT COLUMN: PROFILE CONTENT -->
+                <div class="founder-content-col">
+                    <div class="section-caption">
+                        <i class="fas fa-user-cog"></i>
+                        <h1>Meet the <span class="maroon-text">Founder</span></h1>
+                    </div>
+
+                    <p class="summary">A highly accomplished Project Management and Information Management Professional with over 20 years of experience in the Construction and Upstream Oil & Gas sectors. Proven expertise in delivering complex, high-value capital projects while maintaining strict control over cost, schedule, scope, safety, quality, and regulatory compliance.</p>
+
+                    <!-- CORE EXPERTISE GRID (from the profile) -->
+                    <div class="expertise-grid">
+                        <div class="expertise-item">
+                            <i class="fas fa-diagram-project"></i>
+                            <h3>Project & Info Management</h3>
+                            <p>ISO 9001 & ISO 19650 compliant. Structured information systems, documentation, data governance.</p>
+                        </div>
+                        <div class="expertise-item">
+                            <i class="fas fa-file-signature"></i>
+                            <h3>Contract Strategy & Tender</h3>
+                            <p>End-to-end oil & gas tenders: strategy, evaluation, negotiation, award, execution.</p>
+                        </div>
+                        <div class="expertise-item">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Commercial Analysis</h3>
+                            <p>Budget monitoring, forecasting, pricing evaluation, cost-saving initiatives.</p>
+                        </div>
+                        <div class="expertise-item">
+                            <i class="fas fa-building"></i>
+                            <h3>Major CAPEX Projects</h3>
+                            <p>Alignment across engineering, procurement, construction, and stakeholders.</p>
+                        </div>
+                    </div>
+
+                    <!-- Document Control & BIM Governance / additional badges -->
+                    <div class="badge-strip">
+                        <span class="badge"><i class="fas fa-cubes"></i> BIM Governance (ISO 19650)</span>
+                        <span class="badge"><i class="fas fa-file-shield"></i> EDMS & Document Control</span>
+                        <span class="badge"><i class="fas fa-chart-pie"></i> Power BI / Spotfire</span>
+                        <span class="badge"><i class="fas fa-people-group"></i> Agile / Scrum</span>
+                    </div>
+
+                    <!-- closing line: risk & compliance summary -->
+                    <div class="closing-line">
+                        <i class="fas fa-shield-alt" style="margin-right: 0.8rem; color: #9e2a2b;"></i> 
+                        Experienced in identifying contractual, operational, and information-related risks while ensuring compliance with regulatory, statutory, and corporate governance frameworks.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    
+     <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>© 2026 Boggie Energies Limited. All rights reserved.</p>
+            <p class="footer-icons">
+                <i class="fas fa-hard-hat"></i> <i class="fas fa-bolt"></i> <i class="fas fa-oil-can"></i>
+            </p>
+        </div>
+    </footer>
+
+    <!-- separate JavaScript file -->
+    <script src="script.js"></script>
+    </div>
+</body>
+</html>
