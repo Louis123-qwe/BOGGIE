@@ -437,7 +437,7 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: #0f0f0f; /* Deep black for maximum contrast */
+    background-color: var(--navy);
     display: flex;
     justify-content: center;
     align-items: center;
