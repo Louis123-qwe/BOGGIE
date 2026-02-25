@@ -10,6 +10,7 @@ body {
     background-color: #fcf8f0;  /* milk base */
     color: #0a2342;              /* navy text */
     line-height: 1.5;
+    
 }
 
 /* ----- color palette ----- */
@@ -38,6 +39,7 @@ body {
 }
 .maroon-text {
     color: var(--maroon);
+    margin-bottom: 0.5rem;
 }
 
 /* ---------- HEADER / LOGO ---------- */
@@ -285,7 +287,9 @@ body {
     font-weight: 600;
     letter-spacing: 2px;
     margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
     display: inline-block;
+    margin-right: 0.5rem;
 }
 .sister-text h2 {
     font-size: 2.5rem;
@@ -293,8 +297,9 @@ body {
 }
 .sister-description {
     font-size: 1.1rem;
-    margin: 1rem 0;
+    margin: 2px;
     opacity: 0.9;
+    margin-top: 0.5rem;
 }
 .sister-details {
     display: flex;
@@ -774,7 +779,8 @@ body {
 .rc-number {
   font-size: 0.6em;    
   font-weight: normal;
-  color: #ffffff;      
+  color: #ffffff;
+        
 }
 
 
@@ -803,7 +809,33 @@ body.sip-animation .main-content {
   align-items: center; 
   gap: 15px;          
 }.brand-logo {
-  width: 200px;         
+  width: 220px;         
   height: auto;
   display: inline-block;
+  margin-left: 0.5rem;
+  margin: auto;
+}
+
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+}
+
+#landing-wrapper {
+    width: 100% !important; 
+}
+
+.founder-wrapper, .container {
+    max-width: 100%;
+    overflow: hidden;
+}
+
+img {
+    max-width: 100%;
+}
+small{
+    font-size: 20px ;
+    margin-top: 3px;
 }
