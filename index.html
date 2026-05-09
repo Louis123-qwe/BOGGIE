@@ -1,204 +1,742 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="img.png">
-    <title>Boggie Energies</title>
-    <!-- Font Awesome 6 (clear, colourful icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- separate CSS file -->
-    <link rel="stylesheet" href="style.css">
-    
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="img.png">
+<title>Boggie Energies Limited</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0a2342;
+  --navy-light:#1f3a5f;
+  --milk:#fcf8f0;
+  --maroon:#9e2a2b;
+  --maroon-light:#b94546;
+  --border:#e0d6cc;
+  --text:#2c3a4e;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--milk);color:var(--navy);overflow-x:hidden}
 
+/* SPLASH */
+#splash{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .9s ease}
+#splash.hide{opacity:0;pointer-events:none}
+#splash img{width:clamp(140px,30vw,280px);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+
+.wrap{max-width:1240px;margin:0 auto;padding:0 2.5rem}
+
+/* =====================
+   HEADER - Enhanced
+   ===================== */
+header{
+  background:var(--navy);
+  border-bottom:3px solid var(--maroon);
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 4px 30px rgba(0,0,0,.45);
+}
+.hdr{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:.9rem 0;
+  gap:1rem;
+}
+
+/* Logo — bigger & cleaner */
+.logo-block{display:flex;align-items:center;gap:1.1rem}
+.logo-block img{
+  height:82px;   /* was 68px */
+  width:auto;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 8px rgba(0,0,0,.35));
+  transition:transform .25s;
+}
+.logo-block img:hover{transform:scale(1.04)}
+.logo-text{line-height:1.25}
+.logo-text strong{
+  display:block;
+  color:#fff;
+  font-size:1.55rem;   /* slightly larger */
+  letter-spacing:1px;
+}
+.logo-text span{color:var(--maroon-light);font-size:.9rem;font-weight:400}
+.logo-text small{
+  display:block;
+  color:rgba(255,255,255,.35);
+  font-size:.68rem;
+  letter-spacing:1.5px;
+  margin-top:2px;
+}
+
+/* =====================
+   HAMBURGER BUTTON
+   ===================== */
+.hamburger{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5.5px;
+  cursor:pointer;
+  background:rgba(255,255,255,.07);
+  border:1.5px solid rgba(255,255,255,.15);
+  border-radius:10px;
+  padding:.55rem .65rem;
+  transition:background .2s,border-color .2s;
+  flex-shrink:0;
+}
+.hamburger:hover{background:rgba(158,42,43,.25);border-color:rgba(158,42,43,.5)}
+.hamburger span{
+  display:block;
+  width:24px;
+  height:2.5px;
+  background:#fff;
+  border-radius:3px;
+  transition:transform .35s cubic-bezier(.4,0,.2,1), opacity .25s, width .25s;
+  transform-origin:center;
+}
+/* Active (open) state */
+.hamburger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;width:0}
+.hamburger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+/* =====================
+   MOBILE NAV DRAWER
+   ===================== */
+.nav-drawer{
+  position:fixed;
+  inset:0;
+  z-index:99;
+  pointer-events:none;
+}
+/* Backdrop */
+.nav-drawer::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:rgba(10,35,66,.7);
+  backdrop-filter:blur(4px);
+  opacity:0;
+  transition:opacity .35s;
+}
+.nav-drawer.open{pointer-events:auto}
+.nav-drawer.open::before{opacity:1}
+
+/* Panel */
+.nav-panel{
+  position:absolute;
+  top:0;right:0;
+  height:100%;
+  width:min(320px, 80vw);
+  background:var(--navy);
+  border-left:3px solid var(--maroon);
+  box-shadow:-10px 0 40px rgba(0,0,0,.5);
+  display:flex;
+  flex-direction:column;
+  padding:2rem 1.8rem;
+  transform:translateX(100%);
+  transition:transform .38s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;
+}
+.nav-drawer.open .nav-panel{transform:translateX(0)}
+
+.nav-panel-logo{
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  padding-bottom:1.8rem;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  margin-bottom:1.8rem;
+}
+.nav-panel-logo img{height:52px;width:auto;object-fit:contain}
+.nav-panel-logo span{color:#fff;font-size:1rem;font-weight:700;letter-spacing:.5px}
+
+.nav-close{
+  position:absolute;
+  top:1.2rem;right:1.2rem;
+  background:rgba(255,255,255,.07);
+  border:1.5px solid rgba(255,255,255,.12);
+  border-radius:8px;
+  color:#fff;
+  width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  font-size:.85rem;
+  transition:.2s;
+}
+.nav-close:hover{background:var(--maroon);border-color:var(--maroon)}
+
+.nav-panel ul{list-style:none;display:flex;flex-direction:column;gap:.25rem}
+.nav-panel a{
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  color:rgba(255,255,255,.8);
+  text-decoration:none;
+  font-size:.97rem;
+  font-weight:500;
+  padding:.8rem 1rem;
+  border-radius:10px;
+  transition:.2s;
+  letter-spacing:.3px;
+}
+.nav-panel a i{
+  color:var(--maroon-light);
+  font-size:.95rem;
+  width:18px;
+  text-align:center;
+  flex-shrink:0;
+}
+.nav-panel a:hover{
+  color:#fff;
+  background:rgba(158,42,43,.18);
+  padding-left:1.4rem;
+}
+
+.nav-panel-footer{
+  margin-top:auto;
+  padding-top:1.8rem;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.nav-panel-footer p{color:rgba(255,255,255,.3);font-size:.75rem;letter-spacing:1px;text-transform:uppercase}
+
+/* HERO */
+.hero{position:relative;min-height:88vh;display:flex;align-items:center;background:var(--navy)}
+.hero-bg{position:absolute;inset:0;background:url('Img.jpeg') center 30%/cover no-repeat;opacity:.28}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,35,66,.95) 45%,rgba(10,35,66,.1))}
+.hero-inner{position:relative;z-index:2;max-width:680px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.6rem;background:rgba(158,42,43,.2);border:1px solid rgba(158,42,43,.5);border-radius:40px;padding:.4rem 1.1rem;font-size:.8rem;color:var(--maroon-light);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.6rem}
+.hero-inner h1{font-size:clamp(2.6rem,5.5vw,4.2rem);font-weight:800;color:#fff;line-height:1.08;letter-spacing:-.03em}
+.hero-inner h1 em{color:var(--maroon-light);font-style:normal}
+.hero-inner p{color:rgba(255,255,255,.75);font-size:1.1rem;line-height:1.7;margin:1.4rem 0 2.4rem;max-width:520px}
+.hero-cta{display:inline-flex;align-items:center;gap:.7rem;background:var(--maroon);color:#fff;padding:.85rem 2rem;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;transition:.2s;border:2px solid var(--maroon)}
+.hero-cta:hover{background:transparent;color:var(--maroon-light)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:2.5rem;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,.12)}
+.stat strong{display:block;font-size:2rem;font-weight:800;color:#fff;line-height:1}
+.stat span{font-size:.78rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;margin-top:.3rem;display:block}
+
+/* SECTION HEADER */
+.sh{margin-bottom:3rem}
+.sh-label{font-size:.72rem;font-weight:700;letter-spacing:2.5px;color:var(--maroon);text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+.sh-label::before{content:'';width:24px;height:2px;background:var(--maroon);border-radius:2px}
+.sh h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:800;color:var(--navy);letter-spacing:-.03em}
+.sh p{color:var(--text);font-size:1rem;margin-top:.7rem;max-width:560px;line-height:1.7;opacity:.85}
+.sh.center{text-align:center}
+.sh.center .sh-label{justify-content:center}
+.sh.center p{margin:0 auto}
+.sh.light h2{color:#fff}
+.sh.light .sh-label{color:var(--maroon-light)}
+.sh.light .sh-label::before{background:var(--maroon-light)}
+.sh.light p{color:rgba(252,248,240,.7)}
+
+/* ABOUT */
+#about{background:#fff;padding:6rem 0}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img{border-radius:32px;overflow:hidden;position:relative}
+.about-img img{width:100%;display:block;object-fit:cover;height:420px}
+.about-img-badge{position:absolute;bottom:1.5rem;left:1.5rem;background:var(--maroon);color:#fff;padding:.6rem 1.2rem;border-radius:40px;font-size:.82rem;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.about-text p{color:var(--text);line-height:1.8;font-size:1rem;margin-bottom:1rem}
+.about-pillars{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:1.8rem}
+.ap{background:var(--milk);border-radius:14px;padding:1rem 1.2rem;border-left:4px solid var(--maroon);display:flex;align-items:center;gap:.7rem;font-size:.9rem;font-weight:600;color:var(--navy)}
+.ap i{color:var(--maroon);font-size:1rem;flex-shrink:0}
+
+/* MISSION */
+#mission{background:var(--navy);padding:5rem 0}
+.mission-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.mission-quote{border-left:4px solid var(--maroon);padding:2rem 2.5rem;background:rgba(255,255,255,.04);border-radius:0 24px 24px 0}
+.mission-quote p{font-size:1.35rem;color:#fff;font-style:italic;line-height:1.6;font-weight:300}
+.mission-quote cite{display:block;margin-top:1.2rem;font-size:.8rem;color:var(--maroon-light);letter-spacing:1px;text-transform:uppercase;font-style:normal}
+.mission-values{display:flex;flex-direction:column;gap:1rem}
+.mv{display:flex;align-items:center;gap:1.2rem;background:rgba(255,255,255,.05);border-radius:16px;padding:1.2rem 1.5rem;border:1px solid rgba(255,255,255,.07);transition:.2s}
+.mv:hover{background:rgba(158,42,43,.12);border-color:rgba(158,42,43,.3)}
+.mv-icon{background:rgba(158,42,43,.15);border-radius:12px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mv-icon i{color:var(--maroon-light);font-size:1.1rem}
+.mv h4{color:#fff;font-size:.95rem;font-weight:700;margin-bottom:.2rem}
+.mv p{color:rgba(255,255,255,.55);font-size:.82rem;line-height:1.4}
+
+/* SERVICES */
+#services{background:var(--milk);padding:6rem 0}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+.svc{background:#fff;border-radius:24px;padding:2.2rem;border:1px solid var(--border);transition:.25s;position:relative;overflow:hidden}
+.svc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--maroon);transform:scaleX(0);transform-origin:left;transition:.3s}
+.svc:hover{transform:translateY(-5px);box-shadow:0 20px 40px -12px rgba(10,35,66,.12)}
+.svc:hover::before{transform:scaleX(1)}
+.svc-icon{width:52px;height:52px;background:rgba(158,42,43,.08);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem}
+.svc-icon i{color:var(--maroon);font-size:1.4rem}
+.svc h3{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.7rem;line-height:1.3}
+.svc p{color:var(--text);font-size:.88rem;line-height:1.7;opacity:.85}
+
+/* EXPERTISE STRIP */
+#expertise{background:var(--navy);padding:5rem 0}
+.expertise-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:3rem}
+.ex{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:1.8rem;transition:.2s}
+.ex:hover{background:rgba(158,42,43,.1);border-color:rgba(158,42,43,.3)}
+.ex i{font-size:1.6rem;color:var(--maroon-light);margin-bottom:1rem}
+.ex h4{color:#fff;font-size:.95rem;font-weight:700;margin-bottom:.5rem}
+.ex p{color:rgba(255,255,255,.5);font-size:.82rem;line-height:1.5}
+.badge-row{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2.5rem}
+.badge{background:rgba(255,255,255,.06);color:rgba(252,248,240,.85);border:1px solid rgba(158,42,43,.4);border-radius:40px;padding:.4rem 1.1rem;font-size:.8rem;display:flex;align-items:center;gap:.5rem}
+.badge i{color:var(--maroon-light)}
+
+/* PHILOSOPHY */
+#philosophy{background:#fff;padding:5rem 0}
+.phil-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem}
+.ph{text-align:center;padding:2.2rem 1.5rem;border-radius:24px;border:1px solid var(--border);transition:.2s}
+.ph:hover{border-color:var(--maroon);background:var(--milk)}
+.ph-num{font-size:3rem;font-weight:900;color:rgba(158,42,43,.12);line-height:1;margin-bottom:.8rem}
+.ph i{font-size:1.6rem;color:var(--maroon);margin-bottom:1rem;display:block}
+.ph h4{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
+.ph p{font-size:.85rem;color:var(--text);opacity:.8;line-height:1.6}
+
+/* =====================
+   SISTER BRAND — with logo badge
+   ===================== */
+#sister{background:var(--navy);padding:6rem 0}
+.sister-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center}
+
+/* Image container — relative so badge sits inside */
+.sister-img-wrap{
+  border-radius:32px;
+  overflow:visible;          /* allow badge to overflow slightly */
+  border:3px solid var(--maroon);
+  box-shadow:0 30px 50px -15px rgba(0,0,0,.6);
+  position:relative;
+}
+.sister-img-wrap img.sister-main-img{
+  width:100%;
+  display:block;
+  height:420px;
+  object-fit:cover;
+  border-radius:29px;        /* match container minus border */
+}
+
+/* ILOXX logo badge — bottom-right corner */
+.sister-brand-badge{
+  position:absolute;
+  bottom:-1.1rem;
+  right:-1.1rem;
+  background:var(--navy);
+  border:2.5px solid var(--maroon);
+  border-radius:18px;
+  padding:.7rem 1.1rem;
+  display:flex;
+  align-items:center;
+  gap:.7rem;
+  box-shadow:0 8px 28px rgba(0,0,0,.5);
+  z-index:2;
+  height: 76px;
+  
+}
+.sister-brand-badge img{
+  height:140px;
+  width:auto;
+  object-fit:contain;
+  display:block;
+}
+.sister-brand-badge span{
+  color:rgba(255,255,255,.6);
+  font-size:.72rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.sister-content .sh{margin-bottom:1rem}
+.sister-content p{color:rgba(252,248,240,.8);font-size:.95rem;line-height:1.8;margin-bottom:1.5rem}
+.sister-meta{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.8rem}
+.sm-row{display:flex;align-items:flex-start;gap:.8rem;color:rgba(252,248,240,.7);font-size:.9rem}
+.sm-row i{color:var(--maroon-light);flex-shrink:0;margin-top:2px}
+.sister-quote{background:rgba(255,255,255,.05);border-left:3px solid var(--maroon);border-radius:0 16px 16px 0;padding:1.1rem 1.5rem;font-style:italic;color:rgba(252,248,240,.8);font-size:.9rem}
+
+/* CONTACT */
+#contact{background:var(--milk);padding:6rem 0}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;background:#fff;border-radius:40px;padding:4rem;box-shadow:0 24px 50px -16px rgba(10,35,66,.1)}
+.ci-rows{margin-top:1.5rem;display:flex;flex-direction:column;gap:1.2rem}
+.ci-row{display:flex;align-items:flex-start;gap:1rem}
+.ci-icon{width:40px;height:40px;background:rgba(158,42,43,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-icon i{color:var(--maroon);font-size:.95rem}
+.ci-row span{color:var(--text);font-size:.95rem;line-height:1.6}
+.socials{display:flex;gap:.8rem;margin-top:2rem}
+.socials a{background:var(--navy);color:var(--milk);width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:.85rem;transition:.2s}
+.socials a:hover{background:var(--maroon)}
+.cf-fields{display:flex;flex-direction:column;gap:.9rem;margin-top:1.5rem}
+.cf-fields input{padding:.9rem 1.3rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;background:var(--milk);color:var(--navy);outline:none;transition:.2s;width:100%}
+.cf-fields input:focus{border-color:var(--maroon)}
+.cf-fields textarea{padding:.9rem 1.3rem;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;background:var(--milk);color:var(--navy);outline:none;transition:.2s;width:100%;resize:vertical;min-height:110px;font-family:inherit}
+.cf-fields textarea:focus{border-color:var(--maroon)}
+.cf-btn{background:var(--maroon);color:#fff;border:none;padding:1rem 2rem;border-radius:12px;font-size:.95rem;font-weight:700;cursor:pointer;transition:.2s;width:100%;display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:.3rem}
+.cf-btn:hover{background:var(--navy)}
+.cf-note{text-align:center;font-size:.85rem;color:var(--maroon);margin-top:.6rem;min-height:1.2em}
+
+/* FOOTER */
+footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{display:flex;align-items:center;gap:.8rem}
+.footer-logo img{height:50px;width:auto}
+.footer-logo span{color:rgba(255,255,255,.6);font-size:.85rem}
+.footer-right{text-align:right}
+.footer-right p{color:rgba(255,255,255,.4);font-size:.8rem}
+.footer-icons{margin-top:.5rem}
+.footer-icons i{color:var(--maroon-light);margin-left:.6rem;font-size:1.1rem}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .about-grid,.mission-inner,.sister-wrap{grid-template-columns:1fr}
+  .about-img img,.sister-img-wrap .sister-main-img{height:280px}
+  .phil-grid{grid-template-columns:1fr 1fr}
+  .contact-wrap{grid-template-columns:1fr;padding:2.5rem}
+  .footer-inner{flex-direction:column;text-align:center}
+  .footer-right{text-align:center}
+}
+@media(max-width:640px){
+  .hdr{flex-direction:row;align-items:center}
+  .hero-stats{gap:1.5rem}
+  .about-pillars{grid-template-columns:1fr}
+  .phil-grid{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
-    <div id="landing-wrapper">
-    <img src="logo.png" alt="Boggie Energies Logo" class="landing-logo-only">
+
+<!-- SPLASH -->
+<div id="splash">
+  <img src="logo.png" alt="Boggie Energies">
 </div>
 
-<div id="main-content">
+<!-- NAV DRAWER -->
+<div class="nav-drawer" id="navDrawer">
+  <div class="nav-panel">
+    <button class="nav-close" id="navClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
+    <div class="nav-panel-logo">
+      <img src="logo2.png" alt="Boggie Energies">
+      <span>BOGGIE ENERGIES</span>
     </div>
-
-    <!-- ========== HEADER & LOGO AREA ========== -->
-    <header class="header-area">
-        <div class="container header-flex">
-            <div class="logo-block">
-    <div class="logo-icon">
-        <img src="logo2.png" alt="logo" class="header-logo">
+    <nav>
+      <ul>
+        <li><a href="#home"       class="nav-link"><i class="fas fa-house"></i> Home</a></li>
+        <li><a href="#about"      class="nav-link"><i class="fas fa-building"></i> About</a></li>
+        <li><a href="#mission"    class="nav-link"><i class="fas fa-bullseye"></i> Mission</a></li>
+        <li><a href="#services"   class="nav-link"><i class="fas fa-wrench"></i> Services</a></li>
+        <li><a href="#philosophy" class="nav-link"><i class="fas fa-lightbulb"></i> Philosophy</a></li>
+        <li><a href="#sister"     class="nav-link"><i class="fas fa-link"></i> Sister Brand</a></li>
+        <li><a href="#contact"    class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-panel-footer">
+      <p>RC: 9290297 · Port Harcourt</p>
     </div>
-    <div class="logo-text">BOGGIE <span>ENERGIES LIMITED<div class="limited-row">
-      <h3></h3>
-      <span class="rc-number">RC: 9290297</span></span></div>
-     
+  </div>
 </div>
-           </div>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#mission">Mission</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#philosophy">Philosophy</a></li>
-                    <li><a href="#sister">Sister Brand</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="bio.html">Founder's Bio</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- ========== HERO SECTION with IMAGE ========== -->
-    <section id="home" class="hero-section">
-        <div class="hero-bg"></div>  <!-- background image via CSS -->
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1>Powering <span class="maroon-text">industrial</span> excellence</h1>
-             
-                <div class="hero-stats">
-                    <div class="stat-badge"><i class="fas fa-trophy"></i> 15+ years</div>
-                    <div class="stat-badge"><i class="fas fa-hard-hat"></i> 200+ projects</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== ABOUT CONTAINER ========== -->
-    <section id="about" class="about-section">
-        <div class="container about-container">
-            <div class="about-icon"><i class="fas fa-ship"></i></div>
-            <h2 class="section-title">About Boggie Energies</h2>
-            <p>With a strong presence in Port Harcourt, Lagos, Warri, and the United Kingdom, we provide industrial solutions that combine international best practices with deep local expertise. We are recognized for our reliability and excellence in Engineering Estimation, Project Controls, Information Management, Vessel Brokerage, Pipeline EPCI, Platform and Appurtenance Fabrication, Procurement, and a wide range of construction support services..</p>
-        </div>
-    </section>
-
-    <!-- ========== OUR MISSION CONTAINER ========== -->
-    <section id="mission" class="mission-section">
-        <div class=" container mission-container">
-            <div class="mission-icon"><i class="fas fa-bullseye"></i></div>
-            <h2 class="section-title">Our Mission</h2>
-            <p>To connect smart strategy with hands‑on execution — ensuring every project advances Africa’s energy future safely, responsibly, and efficiently.</p>
-        </div>
-    </section>
-
-    <!-- ========== OUR SERVICES (4 cards) ========== -->
-    <section id="services" class="services-section">
-        <div class="container">
-            <h2 class="section-title">Core Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-anchor card-icon"></i>
-                    <h3>Vessel Brokerage</h3>
-                    <p>Onshore/offshore construction vessel brokerage for global energy infrastructure.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-oil-can card-icon"></i>
-                    <h3> Engineering, Procurement, Construction and Installation (EPCI)</h3>
-                    <p>We specialize in shop fabrication of structures and appurtenances, as well as the engineering, procurement, and installation of carbon steel, flexible, and unbonded flexible pipelines, alongside a broad range of related construction services.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-box-open card-icon"></i>
-                    <h3>Original Equipment Manufacturer Representative</h3>
-                    <p>We are positioned to promote, market, and support manufacturers’ products within designated regions or industries. Acting as a bridge between the OEM and its customers, we provide technical advisory services, sales support, and after-sales assistance while upholding the manufacturer’s standards and interests.</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-microchip card-icon"></i>
-                    <h3>Engineering Estimation and Project Control Services</h3>
-                    <p>We bring extensive expertise in both technical and commercial estimating, including detailed evaluation of project costs, resource allocation, materials, labor, and scheduling. We actively monitor progress, coordinate timelines, control expenditures, and assess potential risks to ensure successful delivery. Our structured approach provides a clear financial and technical roadmap, enabling projects to transition smoothly from initial planning through full execution.</p>
-                
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-file-contract card-icon"></i>
-                    <h3>                   
-Tender packaging & Bid documentation Training (Oil and Gas Sector)</h3>
-
-  <p>We provide comprehensive training tailored specifically for companies in the upstream and Downstream sectors in the Oil and Gas industry. Our program equips participant with practical knowledge and skills to prepare compliant, competitive and technical sound tender submissions</p>
-                </div>
-            </div>
-        </div>
-    </section>
-  
-  
-
-    <!-- ========== OUR PHILOSOPHY CONTAINER ========== -->
-    <section id="philosophy" class="philosophy-section">
-        <div class="container philosophy-container">
-            <div class="phil-icon"><i class="fas fa-compass"></i></div>
-            <h2 class="section-title">Our Philosophy</h2>
-            <div class="philosophy-grid">
-                <div class="phil-item"><i class="fas fa-ear-listen"></i> Listen first</div>
-                <div class="phil-item"><i class="fas fa-check-circle"></i> Stay accountable</div>
-                <div class="phil-item"><i class="fas fa-brain"></i> Build smart</div>
-                <div class="phil-item"><i class="fas fa-rocket"></i> Think ahead</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== OUR SISTER BRAND (detailed) ========== -->
-    <section id="sister" class="sister-section">
-        <div class="container sister-container">
-            <div class="sister-image">
-                <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=1000" alt="ILOXX AG">
-            </div>
-            <div class="sister-text">
-                <span class="sister-label"><i class="fas fa-handshake"></i> SISTER BRAND</span>
-                <div class="brand-header">
-                <h2>ILOXX AG <span class="maroon-text"> LIMITED<small> RC: 1441622</small></span></h2>
-                 <span class="sister-label"></span>
-                 <img src="Iloxx.png" alt="ILOXX Logo" class="brand-logo">
-                 </div>
-               
-                <p class="sister-description">We manage the fabrication, installation, and commissioning of Fixed Platforms, Floating Production Storage and Offloading vessels (FPSOs), Floating Storage and Offloading vessels (FSOs), Mobile Offshore Production Units (MOPUs), oil and gas processing systems, as well as all subsea production equipment and Electrical Submersible Pumps (ESPs).
-​We prepare, compile, and submit fully compliant and competitive proposals while ensuring strict adherence to deadlines, client expectations, and regulatory requirements. Our scope also covers detailed cost analysis, support for pricing strategies, maintaining comprehensive tender documentation and records, and engaging with clients during clarification stages and post-submission negotiations.</p>
-                <div class="sister-details">
-                    <div><i class="fas fa-solid fa-envelope-open-text"></i> iloxxag01@gmail.com</div>
-                    <div><i class="fas fa-house"></i> Visit us 👉 <br><li>Portharcourt<br><li>Warri<br><li>Lagos<br><li>United Kingdom
-     
-                    </li></div>
-                    
-                </div>
-                <p class="sister-quote">"Together we deliver integrated project management, from concept to commissioning."</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== CONTACT & ADDRESS / SOCIAL MEDIA ========== -->
-    <section id="contact" class="contact-section">
-        <div class="container contact-container">
-            <div class="contact-info">
-                <h3><i class="fas fa-map-pin"></i> Visit us</h3>
-                <p>9C Akani Street, Mgbuoba NTA Road, Port Harcourt, Nigeria</p>
-                <p><i class="fas fa-phone-alt"></i> +234 70 3494 5199  |  +44 7575 019929</p>
-                <p><i class="fas fa-envelope"></i> boggie.energies1@gmail.com</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                </div>
-            </div>
-            <div class="contact-form-simple">
-                <h3><i class="fas fa-paper-plane"></i> quick message</h3>
-                <input type="text" placeholder="your name" id="contactName">
-                <input type="email" placeholder="email address" id="contactEmail">
-                <button id="contactBtn"><i class="fas fa-feather"></i> send</button>
-                <p class="form-note"></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== FOOTER ========== -->
-    <footer class="footer">
-        <div class="container footer-content">
-            <p>© 2026 Boggie Energies Limited. All rights reserved.</p>
-            <p class="footer-icons">
-                <i class="fas fa-hard-hat"></i> <i class="fas fa-bolt"></i> <i class="fas fa-oil-can"></i>
-            </p>
-        </div>
-    </footer>
-
-    <!-- separate JavaScript file -->
-    <script src="script.js"></script>
+<!-- HEADER -->
+<header>
+  <div class="wrap hdr">
+    <div class="logo-block">
+      <img src="logo2.png" alt="Boggie Energies">
+      <div class="logo-text">
+        <strong>BOGGIE ENERGIES</strong>
+        <span>LIMITED</span>
+        <small>RC: 9290297</small>
+      </div>
     </div>
+
+    <!-- Hamburger toggle -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-eyebrow"><i class="fas fa-bolt"></i> Energy · Engineering · Excellence</div>
+    <h1>Powering<br><em>Industrial</em><br>Excellence</h1>
+    <p>Delivering integrated energy solutions across Nigeria and the United Kingdom — built on deep expertise, strategic execution, and unwavering integrity.</p>
+    <a href="#services" class="hero-cta"><i class="fas fa-arrow-down"></i> Explore Our Services</a>
+    <div class="hero-stats">
+      <div class="stat"><strong>20+</strong><span>Years Expertise</span></div>
+      <div class="stat"><strong>200+</strong><span>Projects Delivered</span></div>
+      <div class="stat"><strong>4</strong><span>Regions Active</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=1000" alt="Boggie Energies Operations">
+        <div class="about-img-badge"><i class="fas fa-shield-alt"></i> ISO 9001 Aligned</div>
+      </div>
+      <div class="about-text">
+        <div class="sh">
+          <div class="sh-label">Who We Are</div>
+          <h2>About Boggie Energies</h2>
+          <p>With a strong presence in Port Harcourt, Lagos, Warri, and the United Kingdom, we deliver industrial solutions that blend international best practices with deep local expertise.</p>
+        </div>
+        <p>We are recognised for reliability and excellence across Engineering Estimation, Project Controls, Information Management, Vessel Brokerage, Pipeline EPCI, Platform Fabrication, Procurement, and a full spectrum of construction support services.</p>
+        <p>Our team brings over 20 years of proven experience in the Construction and Upstream Oil & Gas sectors — delivering complex, high-value capital projects with strict control over cost, schedule, scope, safety, quality, and regulatory compliance.</p>
+        <div class="about-pillars">
+          <div class="ap"><i class="fas fa-map-marker-alt"></i> Port Harcourt</div>
+          <div class="ap"><i class="fas fa-map-marker-alt"></i> Lagos</div>
+          <div class="ap"><i class="fas fa-map-marker-alt"></i> Warri</div>
+          <div class="ap"><i class="fas fa-map-marker-alt"></i> United Kingdom</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <div class="wrap">
+    <div class="mission-inner">
+      <div>
+        <div class="sh light">
+          <div class="sh-label">What Drives Us</div>
+          <h2>Our Mission</h2>
+          <p>Every decision, every project, every partnership — guided by a single north star.</p>
+        </div>
+        <div class="mission-quote">
+          <p>"To connect smart strategy with hands-on execution — ensuring every project advances Africa's energy future safely, responsibly, and efficiently."</p>
+          <cite>Boggie Energies Limited</cite>
+        </div>
+      </div>
+      <div class="mission-values">
+        <div class="mv"><div class="mv-icon"><i class="fas fa-ear-listen"></i></div><div><h4>Listen First</h4><p>We understand before we act — client goals shape every solution we build.</p></div></div>
+        <div class="mv"><div class="mv-icon"><i class="fas fa-check-double"></i></div><div><h4>Stay Accountable</h4><p>We own our commitments from contract to commissioning.</p></div></div>
+        <div class="mv"><div class="mv-icon"><i class="fas fa-brain"></i></div><div><h4>Build Smart</h4><p>Data-driven decisions and ISO-aligned processes underpin every delivery.</p></div></div>
+        <div class="mv"><div class="mv-icon"><i class="fas fa-rocket"></i></div><div><h4>Think Ahead</h4><p>We anticipate risks and opportunities before they become issues.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="wrap">
+    <div class="sh center">
+      <div class="sh-label">What We Do</div>
+      <h2>Core Services</h2>
+      <p>From concept to commissioning — we provide the full spectrum of services that energy projects demand.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc">
+        <div class="svc-icon"><i class="fas fa-anchor"></i></div>
+        <h3>Vessel Brokerage</h3>
+        <p>We provide onshore and offshore construction vessel brokerage services for global energy infrastructure, sourcing the right marine assets for every project scope and environment.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><i class="fas fa-oil-can"></i></div>
+        <h3>Pipeline EPCI</h3>
+        <p>We handle the full Engineering, Procurement, Construction, and Installation of carbon steel, flexible, and unbonded flexible pipelines — alongside shop fabrication of structures and appurtenances and a broad range of related construction services.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><i class="fas fa-box-open"></i></div>
+        <h3>OEM Representation</h3>
+        <p>We promote, market, and support manufacturers' products within designated regions — bridging OEMs and end clients with technical advisory, sales support, and after-sales assistance while upholding manufacturer standards.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><i class="fas fa-microchip"></i></div>
+        <h3>Engineering Estimation & Project Controls</h3>
+        <p>We bring extensive expertise in technical and commercial estimating — covering project cost evaluation, resource allocation, scheduling, progress monitoring, risk assessment, and a clear financial roadmap from planning through full execution.</p>
+      </div>
+      <div class="svc">
+        <div class="svc-icon"><i class="fas fa-file-contract"></i></div>
+        <h3>Tender & Bid Documentation Training</h3>
+        <p>We deliver targeted training for upstream and downstream Oil & Gas companies, equipping teams with the practical knowledge to prepare compliant, competitive, and technically sound tender submissions that win.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE STRIP -->
+<section id="expertise" style="background:var(--navy);padding:5rem 0">
+  <div class="wrap">
+    <div class="sh light center">
+      <div class="sh-label">Our Depth</div>
+      <h2>Technical Expertise</h2>
+      <p>Our team's capabilities span the full project lifecycle — from information governance to commercial delivery.</p>
+    </div>
+    <div class="expertise-grid">
+      <div class="ex"><i class="fas fa-diagram-project"></i><h4>Project & Information Management</h4><p>ISO 9001 & ISO 19650 compliant systems — structured documentation, data governance, and EDMS oversight.</p></div>
+      <div class="ex"><i class="fas fa-file-signature"></i><h4>Contract Strategy & Tendering</h4><p>End-to-end oil & gas tenders: strategy, evaluation, negotiation, award, and execution management.</p></div>
+      <div class="ex"><i class="fas fa-chart-line"></i><h4>Commercial Analysis</h4><p>Budget monitoring, forecasting, pricing evaluation, and proactive cost-saving initiatives across all project phases.</p></div>
+      <div class="ex"><i class="fas fa-building"></i><h4>Major CAPEX Delivery</h4><p>Cross-functional alignment across engineering, procurement, construction, and key stakeholders for high-value projects.</p></div>
+    </div>
+    <div class="badge-row">
+      <span class="badge"><i class="fas fa-cubes"></i> BIM Governance (ISO 19650)</span>
+      <span class="badge"><i class="fas fa-file-shield"></i> EDMS & Document Control</span>
+      <span class="badge"><i class="fas fa-chart-pie"></i> Power BI / Spotfire</span>
+      <span class="badge"><i class="fas fa-people-group"></i> Agile / Scrum</span>
+      <span class="badge"><i class="fas fa-shield-alt"></i> Risk & Compliance</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="wrap">
+    <div class="sh center">
+      <div class="sh-label">How We Operate</div>
+      <h2>Our Philosophy</h2>
+      <p>Four principles that define how we think, plan, and deliver on every engagement.</p>
+    </div>
+    <div class="phil-grid">
+      <div class="ph"><div class="ph-num">01</div><i class="fas fa-ear-listen"></i><h4>Listen First</h4><p>Understanding the client's vision and constraints before proposing any solution.</p></div>
+      <div class="ph"><div class="ph-num">02</div><i class="fas fa-check-circle"></i><h4>Stay Accountable</h4><p>Full ownership of scope, budget, timeline, and outcomes — no exceptions.</p></div>
+      <div class="ph"><div class="ph-num">03</div><i class="fas fa-brain"></i><h4>Build Smart</h4><p>Leveraging data, proven frameworks, and structured governance in every build.</p></div>
+      <div class="ph"><div class="ph-num">04</div><i class="fas fa-rocket"></i><h4>Think Ahead</h4><p>Anticipating the next challenge so our clients are always one step ahead.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SISTER BRAND -->
+<section id="sister">
+  <div class="wrap">
+    <div class="sister-wrap">
+      <!-- Image with ILOXX badge overlaid -->
+      <div class="sister-img-wrap">
+        <img class="sister-main-img" src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=1000" alt="ILOXX AG">
+
+        <!-- Logo badge — bottom-right corner -->
+        <div class="sister-brand-badge">
+          <img src="Iloxx.png" alt="ILOXX AG Logo">
+         
+        </div>
+      </div>
+
+      <div class="sister-content">
+        <div class="sh light" style="margin-bottom:1rem">
+          <div class="sh-label">Sister Brand</div>
+          <h2>ILOXX AG <span style="color:var(--maroon-light)">LIMITED</span></h2>
+        </div>
+        <small style="color:rgba(255,255,255,.35);font-size:.72rem;letter-spacing:1px;display:block;margin-bottom:1.2rem">RC: 1441622</small>
+        <p>We manage the fabrication, installation, and commissioning of Fixed Platforms, FPSOs, FSOs, MOPUs, oil and gas processing systems, all subsea production equipment, and Electrical Submersible Pumps. We prepare fully compliant and competitive proposals with strict adherence to deadlines, client expectations, and regulatory requirements — including cost analysis, pricing strategy support, tender documentation, and post-submission negotiations.</p>
+        <div class="sister-meta">
+          <div class="sm-row"><i class="fas fa-envelope"></i> iloxxag01@gmail.com</div>
+          <div class="sm-row"><i class="fas fa-location-dot"></i> Port Harcourt · Warri · Lagos · United Kingdom</div>
+        </div>
+        <div class="sister-quote">"Together we deliver integrated project management, from concept to commissioning."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-wrap">
+      <div>
+        <div class="sh">
+          <div class="sh-label">Reach Out</div>
+          <h2>Get In Touch</h2>
+        </div>
+        <div class="ci-rows">
+          <div class="ci-row"><div class="ci-icon"><i class="fas fa-map-pin"></i></div><span>9C Akani Street, Mgbuoba NTA Road,<br>Port Harcourt, Nigeria</span></div>
+          <div class="ci-row"><div class="ci-icon"><i class="fas fa-phone-alt"></i></div><span>+234 70 3494 5199&nbsp;&nbsp;|&nbsp;&nbsp;+44 7575 019929</span></div>
+          <div class="ci-row"><div class="ci-icon"><i class="fas fa-envelope"></i></div><span>boggie.energies1@gmail.com</span></div>
+        </div>
+        <div class="socials">
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="sh">
+          <div class="sh-label">Send a Message</div>
+          <h2>Quick Message</h2>
+        </div>
+        <div class="cf-fields">
+          <input type="text" placeholder="Your Name" id="cName">
+          <input type="email" placeholder="Email Address" id="cEmail">
+          <textarea placeholder="Your message…" id="cMsg"></textarea>
+          <button class="cf-btn" id="cBtn"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </div>
+        <p class="cf-note" id="cNote"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-logo">
+      <img src="logo2.png" alt="Boggie Energies">
+      <span>© 2026 Boggie Energies Limited.<br>All rights reserved.</span>
+    </div>
+    <div class="footer-right">
+      <p>RC: 9290297 · Port Harcourt, Nigeria</p>
+      <div class="footer-icons">
+        <i class="fas fa-hard-hat"></i>
+        <i class="fas fa-bolt"></i>
+        <i class="fas fa-oil-can"></i>
+        <i class="fas fa-ship"></i>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Splash
+setTimeout(()=>document.getElementById('splash').classList.add('hide'), 3000);
+
+// Hamburger / drawer
+const hamburger = document.getElementById('hamburger');
+const drawer    = document.getElementById('navDrawer');
+const navClose  = document.getElementById('navClose');
+const navLinks  = document.querySelectorAll('.nav-link');
+
+function openDrawer(){
+  drawer.classList.add('open');
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded','true');
+  document.body.style.overflow='hidden';
+}
+function closeDrawer(){
+  drawer.classList.remove('open');
+  hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded','false');
+  document.body.style.overflow='';
+}
+
+hamburger.addEventListener('click', ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+navClose.addEventListener('click', closeDrawer);
+
+// Close when clicking the backdrop (outside the panel)
+drawer.addEventListener('click', e=>{
+  if(!e.target.closest('.nav-panel') && !e.target.closest('.hamburger')) closeDrawer();
+});
+
+// Close on nav link click
+navLinks.forEach(l => l.addEventListener('click', closeDrawer));
+
+// Contact form
+document.getElementById('cBtn').addEventListener('click',function(){
+  const n = document.getElementById('cName').value.trim();
+  const e = document.getElementById('cEmail').value.trim();
+  const note = document.getElementById('cNote');
+  if(!n||!e){note.style.color='var(--maroon)';note.textContent='Please fill in your name and email.';return;}
+  note.style.color='#2c6e2f';
+  note.textContent="Message received! We'll be in touch shortly.";
+  document.getElementById('cName').value='';
+  document.getElementById('cEmail').value='';
+  document.getElementById('cMsg').value='';
+});
+</script>
 </body>
 </html>
