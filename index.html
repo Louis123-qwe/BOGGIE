@@ -20,7 +20,6 @@
 html{scroll-behavior:smooth}
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--milk);color:var(--navy);overflow-x:hidden}
 
-/* SPLASH */
 #splash{position:fixed;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .9s ease}
 #splash.hide{opacity:0;pointer-events:none}
 #splash img{width:clamp(140px,30vw,280px);animation:pulse 2s ease-in-out infinite}
@@ -28,9 +27,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--milk);color:va
 
 .wrap{max-width:1240px;margin:0 auto;padding:0 2.5rem}
 
-/* =====================
-   HEADER - Enhanced
-   ===================== */
 header{
   background:var(--navy);
   border-bottom:3px solid var(--maroon);
@@ -47,10 +43,9 @@ header{
   gap:1rem;
 }
 
-/* Logo — bigger & cleaner */
 .logo-block{display:flex;align-items:center;gap:1.1rem}
 .logo-block img{
-  height:82px;   /* was 68px */
+  height:82px;
   width:auto;
   display:block;
   object-fit:contain;
@@ -62,7 +57,7 @@ header{
 .logo-text strong{
   display:block;
   color:#fff;
-  font-size:1.55rem;   /* slightly larger */
+  font-size:1.55rem;
   letter-spacing:1px;
 }
 .logo-text span{color:var(--maroon-light);font-size:.9rem;font-weight:400}
@@ -74,9 +69,6 @@ header{
   margin-top:2px;
 }
 
-/* =====================
-   HAMBURGER BUTTON
-   ===================== */
 .hamburger{
   display:flex;
   flex-direction:column;
@@ -100,21 +92,18 @@ header{
   transition:transform .35s cubic-bezier(.4,0,.2,1), opacity .25s, width .25s;
   transform-origin:center;
 }
-/* Active (open) state */
+
 .hamburger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 .hamburger.open span:nth-child(2){opacity:0;width:0}
 .hamburger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 
-/* =====================
-   MOBILE NAV DRAWER
-   ===================== */
 .nav-drawer{
   position:fixed;
   inset:0;
   z-index:99;
   pointer-events:none;
 }
-/* Backdrop */
+
 .nav-drawer::before{
   content:'';
   position:absolute;
@@ -127,7 +116,6 @@ header{
 .nav-drawer.open{pointer-events:auto}
 .nav-drawer.open::before{opacity:1}
 
-/* Panel */
 .nav-panel{
   position:absolute;
   top:0;right:0;
@@ -205,7 +193,6 @@ header{
 }
 .nav-panel-footer p{color:rgba(255,255,255,.3);font-size:.75rem;letter-spacing:1px;text-transform:uppercase}
 
-/* HERO */
 .hero{position:relative;min-height:88vh;display:flex;align-items:center;background:var(--navy)}
 .hero-bg{position:absolute;inset:0;background:url('Img.jpeg') center 30%/cover no-repeat;opacity:.28}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(10,35,66,.95) 45%,rgba(10,35,66,.1))}
@@ -220,7 +207,6 @@ header{
 .stat strong{display:block;font-size:2rem;font-weight:800;color:#fff;line-height:1}
 .stat span{font-size:.78rem;color:rgba(255,255,255,.5);letter-spacing:1px;text-transform:uppercase;margin-top:.3rem;display:block}
 
-/* SECTION HEADER */
 .sh{margin-bottom:3rem}
 .sh-label{font-size:.72rem;font-weight:700;letter-spacing:2.5px;color:var(--maroon);text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
 .sh-label::before{content:'';width:24px;height:2px;background:var(--maroon);border-radius:2px}
@@ -234,7 +220,6 @@ header{
 .sh.light .sh-label::before{background:var(--maroon-light)}
 .sh.light p{color:rgba(252,248,240,.7)}
 
-/* ABOUT */
 #about{background:#fff;padding:6rem 0}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .about-img{border-radius:32px;overflow:hidden;position:relative}
@@ -245,7 +230,6 @@ header{
 .ap{background:var(--milk);border-radius:14px;padding:1rem 1.2rem;border-left:4px solid var(--maroon);display:flex;align-items:center;gap:.7rem;font-size:.9rem;font-weight:600;color:var(--navy)}
 .ap i{color:var(--maroon);font-size:1rem;flex-shrink:0}
 
-/* MISSION */
 #mission{background:var(--navy);padding:5rem 0}
 .mission-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
 .mission-quote{border-left:4px solid var(--maroon);padding:2rem 2.5rem;background:rgba(255,255,255,.04);border-radius:0 24px 24px 0}
@@ -259,7 +243,6 @@ header{
 .mv h4{color:#fff;font-size:.95rem;font-weight:700;margin-bottom:.2rem}
 .mv p{color:rgba(255,255,255,.55);font-size:.82rem;line-height:1.4}
 
-/* SERVICES */
 #services{background:var(--milk);padding:6rem 0}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
 .svc{background:#fff;border-radius:24px;padding:2.2rem;border:1px solid var(--border);transition:.25s;position:relative;overflow:hidden}
@@ -271,7 +254,6 @@ header{
 .svc h3{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.7rem;line-height:1.3}
 .svc p{color:var(--text);font-size:.88rem;line-height:1.7;opacity:.85}
 
-/* EXPERTISE STRIP */
 #expertise{background:var(--navy);padding:5rem 0}
 .expertise-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.2rem;margin-top:3rem}
 .ex{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:1.8rem;transition:.2s}
@@ -283,7 +265,6 @@ header{
 .badge{background:rgba(255,255,255,.06);color:rgba(252,248,240,.85);border:1px solid rgba(158,42,43,.4);border-radius:40px;padding:.4rem 1.1rem;font-size:.8rem;display:flex;align-items:center;gap:.5rem}
 .badge i{color:var(--maroon-light)}
 
-/* PHILOSOPHY */
 #philosophy{background:#fff;padding:5rem 0}
 .phil-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem}
 .ph{text-align:center;padding:2.2rem 1.5rem;border-radius:24px;border:1px solid var(--border);transition:.2s}
@@ -293,16 +274,12 @@ header{
 .ph h4{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem}
 .ph p{font-size:.85rem;color:var(--text);opacity:.8;line-height:1.6}
 
-/* =====================
-   SISTER BRAND — with logo badge
-   ===================== */
 #sister{background:var(--navy);padding:6rem 0}
 .sister-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center}
 
-/* Image container — relative so badge sits inside */
 .sister-img-wrap{
   border-radius:32px;
-  overflow:visible;          /* allow badge to overflow slightly */
+  overflow:visible;
   border:3px solid var(--maroon);
   box-shadow:0 30px 50px -15px rgba(0,0,0,.6);
   position:relative;
@@ -312,38 +289,18 @@ header{
   display:block;
   height:420px;
   object-fit:cover;
-  border-radius:29px;        /* match container minus border */
+  border-radius:29px;
 }
 
-/* ILOXX logo badge — bottom-right corner */
-.sister-brand-badge{
+.sister-logo-tl{
   position:absolute;
-  bottom:-1.1rem;
-  right:-1.1rem;
-  background:var(--navy);
-  border:2.5px solid var(--maroon);
-  border-radius:18px;
-  padding:.7rem 1.1rem;
-  display:flex;
-  align-items:center;
-  gap:.7rem;
-  box-shadow:0 8px 28px rgba(0,0,0,.5);
+  top:1rem;
+  left:1rem;
+  width:230px;
+  max-width:55%;
+  height:auto;
   z-index:2;
-  height: 76px;
-  
-}
-.sister-brand-badge img{
-  height:140px;
-  width:auto;
-  object-fit:contain;
-  display:block;
-}
-.sister-brand-badge span{
-  color:rgba(255,255,255,.6);
-  font-size:.72rem;
-  letter-spacing:1px;
-  text-transform:uppercase;
-  white-space:nowrap;
+  filter:drop-shadow(0 4px 10px rgba(0,0,0,.55));
 }
 
 .sister-content .sh{margin-bottom:1rem}
@@ -353,7 +310,6 @@ header{
 .sm-row i{color:var(--maroon-light);flex-shrink:0;margin-top:2px}
 .sister-quote{background:rgba(255,255,255,.05);border-left:3px solid var(--maroon);border-radius:0 16px 16px 0;padding:1.1rem 1.5rem;font-style:italic;color:rgba(252,248,240,.8);font-size:.9rem}
 
-/* CONTACT */
 #contact{background:var(--milk);padding:6rem 0}
 .contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;background:#fff;border-radius:40px;padding:4rem;box-shadow:0 24px 50px -16px rgba(10,35,66,.1)}
 .ci-rows{margin-top:1.5rem;display:flex;flex-direction:column;gap:1.2rem}
@@ -373,7 +329,6 @@ header{
 .cf-btn:hover{background:var(--navy)}
 .cf-note{text-align:center;font-size:.85rem;color:var(--maroon);margin-top:.6rem;min-height:1.2em}
 
-/* FOOTER */
 footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
 .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
 .footer-logo{display:flex;align-items:center;gap:.8rem}
@@ -384,7 +339,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
 .footer-icons{margin-top:.5rem}
 .footer-icons i{color:var(--maroon-light);margin-left:.6rem;font-size:1.1rem}
 
-/* RESPONSIVE */
 @media(max-width:960px){
   .about-grid,.mission-inner,.sister-wrap{grid-template-columns:1fr}
   .about-img img,.sister-img-wrap .sister-main-img{height:280px}
@@ -403,12 +357,10 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
 </head>
 <body>
 
-<!-- SPLASH -->
 <div id="splash">
   <img src="logo.png" alt="Boggie Energies">
 </div>
 
-<!-- NAV DRAWER -->
 <div class="nav-drawer" id="navDrawer">
   <div class="nav-panel">
     <button class="nav-close" id="navClose" aria-label="Close menu"><i class="fas fa-times"></i></button>
@@ -433,7 +385,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </div>
 
-<!-- HEADER -->
 <header>
   <div class="wrap hdr">
     <div class="logo-block">
@@ -445,7 +396,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
       </div>
     </div>
 
-    <!-- Hamburger toggle -->
     <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
       <span></span>
       <span></span>
@@ -454,14 +404,13 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </header>
 
-<!-- HERO -->
 <section id="home" class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="wrap hero-inner">
     <div class="hero-eyebrow"><i class="fas fa-bolt"></i> Energy · Engineering · Excellence</div>
     <h1>Powering<br><em>Industrial</em><br>Excellence</h1>
-    <p>Delivering integrated energy solutions across Nigeria and the United Kingdom — built on deep expertise, strategic execution, and unwavering integrity.</p>
+    <p>Delivering integrated energy solutions across Nigeria and the United Kingdom, built on deep expertise, strategic execution, and unwavering integrity.</p>
     <a href="#services" class="hero-cta"><i class="fas fa-arrow-down"></i> Explore Our Services</a>
     <div class="hero-stats">
       <div class="stat"><strong>20+</strong><span>Years Expertise</span></div>
@@ -471,7 +420,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="wrap">
     <div class="about-grid">
@@ -486,7 +434,7 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
           <p>With a strong presence in Port Harcourt, Lagos, Warri, and the United Kingdom, we deliver industrial solutions that blend international best practices with deep local expertise.</p>
         </div>
         <p>We are recognised for reliability and excellence across Engineering Estimation, Project Controls, Information Management, Vessel Brokerage, Pipeline EPCI, Platform Fabrication, Procurement, and a full spectrum of construction support services.</p>
-        <p>Our team brings over 20 years of proven experience in the Construction and Upstream Oil & Gas sectors — delivering complex, high-value capital projects with strict control over cost, schedule, scope, safety, quality, and regulatory compliance.</p>
+        <p>Our team brings over 20 years of proven experience in the Construction and Upstream Oil & Gas sectors, delivering complex, high-value capital projects with strict control over cost, schedule, scope, safety, quality, and regulatory compliance.</p>
         <div class="about-pillars">
           <div class="ap"><i class="fas fa-map-marker-alt"></i> Port Harcourt</div>
           <div class="ap"><i class="fas fa-map-marker-alt"></i> Lagos</div>
@@ -498,7 +446,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </section>
 
-<!-- MISSION -->
 <section id="mission">
   <div class="wrap">
     <div class="mission-inner">
@@ -506,15 +453,15 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
         <div class="sh light">
           <div class="sh-label">What Drives Us</div>
           <h2>Our Mission</h2>
-          <p>Every decision, every project, every partnership — guided by a single north star.</p>
+          <p>Every decision, every project, every partnership, guided by a single north star.</p>
         </div>
         <div class="mission-quote">
-          <p>"To connect smart strategy with hands-on execution — ensuring every project advances Africa's energy future safely, responsibly, and efficiently."</p>
+          <p>"To connect smart strategy with hands-on execution, ensuring every project advances Africa's energy future safely, responsibly, and efficiently."</p>
           <cite>Boggie Energies Limited</cite>
         </div>
       </div>
       <div class="mission-values">
-        <div class="mv"><div class="mv-icon"><i class="fas fa-ear-listen"></i></div><div><h4>Listen First</h4><p>We understand before we act — client goals shape every solution we build.</p></div></div>
+        <div class="mv"><div class="mv-icon"><i class="fas fa-ear-listen"></i></div><div><h4>Listen First</h4><p>We understand before we act, client goals shape every solution we build.</p></div></div>
         <div class="mv"><div class="mv-icon"><i class="fas fa-check-double"></i></div><div><h4>Stay Accountable</h4><p>We own our commitments from contract to commissioning.</p></div></div>
         <div class="mv"><div class="mv-icon"><i class="fas fa-brain"></i></div><div><h4>Build Smart</h4><p>Data-driven decisions and ISO-aligned processes underpin every delivery.</p></div></div>
         <div class="mv"><div class="mv-icon"><i class="fas fa-rocket"></i></div><div><h4>Think Ahead</h4><p>We anticipate risks and opportunities before they become issues.</p></div></div>
@@ -523,13 +470,12 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </section>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="wrap">
     <div class="sh center">
       <div class="sh-label">What We Do</div>
       <h2>Core Services</h2>
-      <p>From concept to commissioning — we provide the full spectrum of services that energy projects demand.</p>
+      <p>From concept to commissioning, we provide the full spectrum of services that energy projects demand.</p>
     </div>
     <div class="services-grid">
       <div class="svc">
@@ -540,17 +486,17 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
       <div class="svc">
         <div class="svc-icon"><i class="fas fa-oil-can"></i></div>
         <h3>Pipeline EPCI</h3>
-        <p>We handle the full Engineering, Procurement, Construction, and Installation of carbon steel, flexible, and unbonded flexible pipelines — alongside shop fabrication of structures and appurtenances and a broad range of related construction services.</p>
+        <p>We handle the full Engineering, Procurement, Construction, and Installation of carbon steel, flexible, and unbonded flexible pipelines, alongside shop fabrication of structures and appurtenances and a broad range of related construction services.</p>
       </div>
       <div class="svc">
         <div class="svc-icon"><i class="fas fa-box-open"></i></div>
         <h3>OEM Representation</h3>
-        <p>We promote, market, and support manufacturers' products within designated regions — bridging OEMs and end clients with technical advisory, sales support, and after-sales assistance while upholding manufacturer standards.</p>
+        <p>We promote, market, and support manufacturers' products within designated regions, bridging OEMs and end clients with technical advisory, sales support, and after-sales assistance while upholding manufacturer standards.</p>
       </div>
       <div class="svc">
         <div class="svc-icon"><i class="fas fa-microchip"></i></div>
         <h3>Engineering Estimation & Project Controls</h3>
-        <p>We bring extensive expertise in technical and commercial estimating — covering project cost evaluation, resource allocation, scheduling, progress monitoring, risk assessment, and a clear financial roadmap from planning through full execution.</p>
+        <p>We bring extensive expertise in technical and commercial estimating, covering project cost evaluation, resource allocation, scheduling, progress monitoring, risk assessment, and a clear financial roadmap from planning through full execution.</p>
       </div>
       <div class="svc">
         <div class="svc-icon"><i class="fas fa-file-contract"></i></div>
@@ -561,16 +507,15 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </section>
 
-<!-- EXPERTISE STRIP -->
 <section id="expertise" style="background:var(--navy);padding:5rem 0">
   <div class="wrap">
     <div class="sh light center">
       <div class="sh-label">Our Depth</div>
       <h2>Technical Expertise</h2>
-      <p>Our team's capabilities span the full project lifecycle — from information governance to commercial delivery.</p>
+      <p>Our team's capabilities span the full project lifecycle, from information governance to commercial delivery.</p>
     </div>
     <div class="expertise-grid">
-      <div class="ex"><i class="fas fa-diagram-project"></i><h4>Project & Information Management</h4><p>ISO 9001 & ISO 19650 compliant systems — structured documentation, data governance, and EDMS oversight.</p></div>
+      <div class="ex"><i class="fas fa-diagram-project"></i><h4>Project & Information Management</h4><p>ISO 9001 & ISO 19650 compliant systems: structured documentation, data governance, and EDMS oversight.</p></div>
       <div class="ex"><i class="fas fa-file-signature"></i><h4>Contract Strategy & Tendering</h4><p>End-to-end oil & gas tenders: strategy, evaluation, negotiation, award, and execution management.</p></div>
       <div class="ex"><i class="fas fa-chart-line"></i><h4>Commercial Analysis</h4><p>Budget monitoring, forecasting, pricing evaluation, and proactive cost-saving initiatives across all project phases.</p></div>
       <div class="ex"><i class="fas fa-building"></i><h4>Major CAPEX Delivery</h4><p>Cross-functional alignment across engineering, procurement, construction, and key stakeholders for high-value projects.</p></div>
@@ -585,7 +530,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </section>
 
-<!-- PHILOSOPHY -->
 <section id="philosophy">
   <div class="wrap">
     <div class="sh center">
@@ -595,26 +539,21 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
     </div>
     <div class="phil-grid">
       <div class="ph"><div class="ph-num">01</div><i class="fas fa-ear-listen"></i><h4>Listen First</h4><p>Understanding the client's vision and constraints before proposing any solution.</p></div>
-      <div class="ph"><div class="ph-num">02</div><i class="fas fa-check-circle"></i><h4>Stay Accountable</h4><p>Full ownership of scope, budget, timeline, and outcomes — no exceptions.</p></div>
+      <div class="ph"><div class="ph-num">02</div><i class="fas fa-check-circle"></i><h4>Stay Accountable</h4><p>Full ownership of scope, budget, timeline, and outcomes, no exceptions.</p></div>
       <div class="ph"><div class="ph-num">03</div><i class="fas fa-brain"></i><h4>Build Smart</h4><p>Leveraging data, proven frameworks, and structured governance in every build.</p></div>
       <div class="ph"><div class="ph-num">04</div><i class="fas fa-rocket"></i><h4>Think Ahead</h4><p>Anticipating the next challenge so our clients are always one step ahead.</p></div>
     </div>
   </div>
 </section>
 
-<!-- SISTER BRAND -->
 <section id="sister">
   <div class="wrap">
     <div class="sister-wrap">
-      <!-- Image with ILOXX badge overlaid -->
+
       <div class="sister-img-wrap">
         <img class="sister-main-img" src="https://images.unsplash.com/photo-1516937941344-00b4e0337589?q=80&w=1000" alt="ILOXX AG">
 
-        <!-- Logo badge — bottom-right corner -->
-        <div class="sister-brand-badge">
-          <img src="Iloxx.png" alt="ILOXX AG Logo">
-         
-        </div>
+        <img class="sister-logo-tl" src="iloxx-logo.png" alt="ILOXX AG Logo">
       </div>
 
       <div class="sister-content">
@@ -623,7 +562,7 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
           <h2>ILOXX AG <span style="color:var(--maroon-light)">LIMITED</span></h2>
         </div>
         <small style="color:rgba(255,255,255,.35);font-size:.72rem;letter-spacing:1px;display:block;margin-bottom:1.2rem">RC: 1441622</small>
-        <p>We manage the fabrication, installation, and commissioning of Fixed Platforms, FPSOs, FSOs, MOPUs, oil and gas processing systems, all subsea production equipment, and Electrical Submersible Pumps. We prepare fully compliant and competitive proposals with strict adherence to deadlines, client expectations, and regulatory requirements — including cost analysis, pricing strategy support, tender documentation, and post-submission negotiations.</p>
+        <p>We manage the fabrication, installation, and commissioning of Fixed Platforms, FPSOs, FSOs, MOPUs, oil and gas processing systems, all subsea production equipment, and Electrical Submersible Pumps. We prepare fully compliant and competitive proposals with strict adherence to deadlines, client expectations, and regulatory requirements, including cost analysis, pricing strategy support, tender documentation, and post-submission negotiations.</p>
         <div class="sister-meta">
           <div class="sm-row"><i class="fas fa-envelope"></i> iloxxag01@gmail.com</div>
           <div class="sm-row"><i class="fas fa-location-dot"></i> Port Harcourt · Warri · Lagos · United Kingdom</div>
@@ -634,7 +573,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="wrap">
     <div class="contact-wrap">
@@ -644,7 +582,7 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
           <h2>Get In Touch</h2>
         </div>
         <div class="ci-rows">
-          
+
           <div class="ci-row"><div class="ci-icon"><i class="fas fa-phone-alt"></i></div><span>+234 70 3494 5199</span></div>
           <div class="ci-row"><div class="ci-icon"><i class="fas fa-envelope"></i></div><span>boggie.energies1@gmail.com</span></div>
         </div>
@@ -672,7 +610,6 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap footer-inner">
     <div class="footer-logo">
@@ -692,10 +629,9 @@ footer{background:var(--navy);border-top:3px solid var(--maroon);padding:3rem 0}
 </footer>
 
 <script>
-// Splash
+
 setTimeout(()=>document.getElementById('splash').classList.add('hide'), 3000);
 
-// Hamburger / drawer
 const hamburger = document.getElementById('hamburger');
 const drawer    = document.getElementById('navDrawer');
 const navClose  = document.getElementById('navClose');
@@ -717,15 +653,12 @@ function closeDrawer(){
 hamburger.addEventListener('click', ()=> drawer.classList.contains('open') ? closeDrawer() : openDrawer());
 navClose.addEventListener('click', closeDrawer);
 
-// Close when clicking the backdrop (outside the panel)
 drawer.addEventListener('click', e=>{
   if(!e.target.closest('.nav-panel') && !e.target.closest('.hamburger')) closeDrawer();
 });
 
-// Close on nav link click
 navLinks.forEach(l => l.addEventListener('click', closeDrawer));
 
-// Contact form
 document.getElementById('cBtn').addEventListener('click',function(){
   const n = document.getElementById('cName').value.trim();
   const e = document.getElementById('cEmail').value.trim();
